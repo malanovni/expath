@@ -15,7 +15,7 @@ export const languages = [
 
 export const translations = {
     en: {
-        brand: "Valencia Guide",
+        brand: "Navigrate",
         places: "Places",
         guide: "Guide",
         routes: "Routes",
@@ -49,7 +49,7 @@ export const translations = {
         cat_train: "Train Stations"
     },
     es: {
-        brand: "Guía Valencia",
+        brand: "Navigrate",
         places: "Lugares",
         guide: "Guía",
         routes: "Rutas",
@@ -83,7 +83,7 @@ export const translations = {
         cat_train: "Estaciones de Tren"
     },
     ru: {
-        brand: "Гид по Валенсии",
+        brand: "Navigrate",
         places: "Места",
         guide: "Гид",
         routes: "Маршруты",
@@ -117,7 +117,7 @@ export const translations = {
         cat_train: "Ж/Д вокзалы"
     },
     fr: {
-        brand: "Guide Valence",
+        brand: "Navigrate",
         places: "Lieux",
         guide: "Guide",
         routes: "Itinéraires",
@@ -151,7 +151,7 @@ export const translations = {
         cat_train: "Gares"
     },
     pt: {
-        brand: "Guia Valência",
+        brand: "Navigrate",
         places: "Lugares",
         guide: "Guia",
         routes: "Rotas",
@@ -185,7 +185,7 @@ export const translations = {
         cat_train: "Estações de Comboio"
     },
     pl: {
-        brand: "Przewodnik Walencja",
+        brand: "Navigrate",
         places: "Miejsca",
         guide: "Przewodnik",
         routes: "Trasy",
@@ -219,7 +219,7 @@ export const translations = {
         cat_train: "Dworce Kolejowe"
     },
     uk: {
-        brand: "Гід по Валенсії",
+        brand: "Navigrate",
         places: "Місця",
         guide: "Гід",
         routes: "Маршрути",
@@ -253,7 +253,7 @@ export const translations = {
         cat_train: "Залізничні станції"
     },
     ar: {
-        brand: "دليل فالنسيا",
+        brand: "Navigrate",
         places: "الأماكن",
         guide: "الدليل",
         routes: "المسارات",
@@ -287,7 +287,7 @@ export const translations = {
         cat_train: "محطات القطار"
     },
     hr: {
-        brand: "Vodič Valencia",
+        brand: "Navigrate",
         places: "Mjesta",
         guide: "Vodič",
         routes: "Rute",
