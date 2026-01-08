@@ -1,0 +1,29 @@
+{
+  "name": "valencia-interactive-map",
+  "version": "2.0.0",
+  "description": "Interactive Valencia map (React + MapLibre) with routes and POI toggles.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/data.test.js"
+  },
+  "keywords": [
+    "map",
+    "valencia",
+    "maplibre",
+    "react",
+    "geojson"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "lucide-react": "^0.561.0",
+    "maplibre-gl": "3.6.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "vite": "5.4.1"
+  }
+}
