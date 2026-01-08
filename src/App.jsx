@@ -267,10 +267,8 @@ const App = () => {
 
   // Initialize Map
   useEffect(() => {
-    const maptilerKey = import.meta.env.VITE_MAPTILER_KEY;
-    const initialStyle = maptilerKey
-      ? `https://api.maptiler.com/maps/dataviz/style.json?key=${maptilerKey}`
-      : "https://demotiles.maplibre.org/style.json";
+    const maptilerKey = import.meta.env.VITE_MAPTILER_KEY || "2x05cIiqLmf0C6mjVZ0K";
+    const initialStyle = `https://api.maptiler.com/maps/dataviz/style.json?key=${maptilerKey}`;
 
     const map = new maplibregl.Map({
       container: mapNode.current,
@@ -283,7 +281,14 @@ const App = () => {
     });
 
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
-    map.on("load", () => { addMapLayers(map); setMapReady(true); });
+
+    map.on("load", () => {
+      addMapLayers(map);
+      setMapReady(true);
+      // Force a resize to ensure tiles are rendered correctly
+      setTimeout(() => map.resize(), 100);
+    });
+
     map.on("styledata", () => addMapLayers(map));
 
     map.on("click", (e) => {
