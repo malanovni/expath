@@ -46,7 +46,9 @@ export const translations = {
         cat_pools: "Pools & Gyms",
         cat_metro: "Metro Stations",
         cat_tram: "Tram Stations",
-        cat_train: "Train Stations"
+        cat_train: "Train Stations",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     es: {
         brand: "Navigrate",
@@ -80,7 +82,9 @@ export const translations = {
         cat_pools: "Piscinas y Gimnasios",
         cat_metro: "Estaciones de Metro",
         cat_tram: "Estaciones de Tranvía",
-        cat_train: "Estaciones de Tren"
+        cat_train: "Estaciones de Tren",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     ru: {
         brand: "Navigrate",
@@ -114,7 +118,9 @@ export const translations = {
         cat_pools: "Бассейны и Залы",
         cat_metro: "Станции метро",
         cat_tram: "Трамвайные остановки",
-        cat_train: "Ж/Д вокзалы"
+        cat_train: "Ж/Д вокзалы",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     fr: {
         brand: "Navigrate",
@@ -148,7 +154,9 @@ export const translations = {
         cat_pools: "Piscines et Gyms",
         cat_metro: "Stations de Métro",
         cat_tram: "Arrêts de Tram",
-        cat_train: "Gares"
+        cat_train: "Gares",
+        googleMaps: "Google Maps",
+        appleMaps: "Plans (Apple)"
     },
     pt: {
         brand: "Navigrate",
@@ -182,7 +190,9 @@ export const translations = {
         cat_pools: "Piscinas e Ginásios",
         cat_metro: "Estações de Metro",
         cat_tram: "Paragens de Eléctrico",
-        cat_train: "Estações de Comboio"
+        cat_train: "Estações de Comboio",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     pl: {
         brand: "Navigrate",
@@ -216,7 +226,9 @@ export const translations = {
         cat_pools: "Baseny i Siłownie",
         cat_metro: "Stacje Metra",
         cat_tram: "Przystanki Tramwajowe",
-        cat_train: "Dworce Kolejowe"
+        cat_train: "Dworce Kolejowe",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     uk: {
         brand: "Navigrate",
@@ -250,7 +262,9 @@ export const translations = {
         cat_pools: "Басейни та Зали",
         cat_metro: "Станції метро",
         cat_tram: "Трамвайні зупинки",
-        cat_train: "Залізничні станції"
+        cat_train: "Залізничні станції",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     ar: {
         brand: "Navigrate",
@@ -284,7 +298,9 @@ export const translations = {
         cat_pools: "حمامات السباحة والصالات الرياضية",
         cat_metro: "محطات المترو",
         cat_tram: "محطات الترام",
-        cat_train: "محطات القطار"
+        cat_train: "محطات القطار",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     },
     hr: {
         brand: "Navigrate",
@@ -318,7 +334,9 @@ export const translations = {
         cat_pools: "Bazeni i Teretane",
         cat_metro: "Stanice metroa",
         cat_tram: "Tramvajske stanice",
-        cat_train: "Željezničke stanice"
+        cat_train: "Željezničke stanice",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     }
 };
 
