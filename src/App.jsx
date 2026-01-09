@@ -4,7 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import {
   Landmark, Coffee, Building2, Music, Hospital, Dumbbell,
   TrainFront, TramFront, Search, Map as MapIcon, Layers, Info, Globe,
-  Clock, ArrowRight, X, Eye, Languages, ChevronDown, Navigation2, ChevronUp
+  Clock, ArrowRight, X, Eye, Languages, ChevronDown, Navigation2, ChevronUp, Navigation
 } from "lucide-react";
 import { createRoot } from "react-dom/client";
 import { categories, routes, metroLines, metroGuide, viewBounds } from "./data/valencia.js";
@@ -60,21 +60,45 @@ const LanguageSelector = ({ currentLang, onSelect, isOpen, onToggle }) => {
 // ============================================================================
 // REGULAR POPUP CONTENT (Light theme)
 // ============================================================================
-const PopupContent = ({ feature, onClose }) => (
-  <div className="popup-container popup-light">
-    <button className="popup-close" onClick={onClose}><X size={16} /></button>
-    <div className="popup-header">
-      <span className="popup-title">{feature.name}</span>
-    </div>
-    {feature.description && <p className="popup-desc">{feature.description}</p>}
-    {feature.tips && <div className="popup-tip">{feature.tips}</div>}
-    {feature.line && (
-      <div className="popup-lines-badge">
-        <span className="line-label">Lines:</span> {feature.line}
+const PopupContent = ({ feature, onClose, lang }) => {
+  const t = (key) => getTranslation(lang, key);
+  const [lng, lat] = feature.coords || [0, 0];
+
+  return (
+    <div className="popup-container popup-light">
+      <button className="popup-close" onClick={onClose}><X size={16} /></button>
+      <div className="popup-header">
+        <span className="popup-title">{feature.name}</span>
       </div>
-    )}
-  </div>
-);
+      {feature.description && <p className="popup-desc">{feature.description}</p>}
+      {feature.tips && <div className="popup-tip">{feature.tips}</div>}
+      {feature.line && (
+        <div className="popup-lines-badge">
+          <span className="line-label">Lines:</span> {feature.line}
+        </div>
+      )}
+
+      <div className="popup-actions">
+        <a
+          href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="map-btn google"
+        >
+          <MapIcon size={14} /> {t("googleMaps")}
+        </a>
+        <a
+          href={`http://maps.apple.com/?ll=${lat},${lng}&q=${feature.name}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="map-btn apple"
+        >
+          <Navigation size={14} /> {t("appleMaps")}
+        </a>
+      </div>
+    </div>
+  );
+};
 
 // ============================================================================
 // TRANSPORT POPUP (Light theme, no emojis, vertical layout)
@@ -133,6 +157,25 @@ const TransportPopup = ({ feature, onClose, lang }) => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="popup-actions">
+        <a
+          href={`https://www.google.com/maps/search/?api=1&query=${feature.coords[1]},${feature.coords[0]}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="map-btn google"
+        >
+          <MapIcon size={14} /> {t("googleMaps")}
+        </a>
+        <a
+          href={`http://maps.apple.com/?ll=${feature.coords[1]},${feature.coords[0]}&q=${feature.name}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="map-btn apple"
+        >
+          <Navigation size={14} /> {t("appleMaps")}
+        </a>
       </div>
     </div>
   );
@@ -207,12 +250,26 @@ const addMapLayers = (map) => {
       }
     });
 
+    // Neon Glow Layer (Behind everything)
+    map.addLayer({
+      id: `${route.id}-glow`,
+      type: "line",
+      source: route.id,
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": route.color,
+        "line-width": route.width * 3,
+        "line-opacity": 0.4,
+        "line-blur": 3
+      }
+    });
+
     map.addLayer({
       id: `${route.id}-outline`,
       type: "line",
       source: route.id,
       layout: { "line-cap": "round", "line-join": "round" },
-      paint: { "line-color": "#ffffff", "line-width": route.width + 3, "line-opacity": 0.6 }
+      paint: { "line-color": "#ffffff", "line-width": route.width + 2, "line-opacity": 0.8 }
     });
 
     map.addLayer({
@@ -248,7 +305,7 @@ const App = () => {
   const [focusedLines, setFocusedLines] = useState(null);
   const [lang, setLang] = useState("en");
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const [pitch, setPitch] = useState(45);
+  const [pitch, setPitch] = useState(60); // Start with high pitch for cinematic feel
   const [userLocation, setUserLocation] = useState(null);
   const [showUserLocation, setShowUserLocation] = useState(false);
   const [drawerCollapsed, setDrawerCollapsed] = useState(false);
@@ -274,8 +331,9 @@ const App = () => {
       container: mapNode.current,
       style: initialStyle,
       center: [-0.3763, 39.4699],
-      zoom: 13.5,
-      pitch: pitch,
+      zoom: 11, // Start zoomed out
+      pitch: 0, // Start top-down
+      bearing: -20,
       hash: false,
       attributionControl: false
     });
@@ -285,8 +343,20 @@ const App = () => {
     map.on("load", () => {
       addMapLayers(map);
       setMapReady(true);
-      // Force a resize to ensure tiles are rendered correctly
-      setTimeout(() => map.resize(), 100);
+
+      // Cinematic Fly-in
+      setTimeout(() => {
+        map.resize();
+        map.flyTo({
+          center: [-0.3763, 39.4699],
+          zoom: 13.5,
+          pitch: 60,
+          bearing: 0,
+          duration: 4000,
+          essential: true,
+          easing: (t) => t * (2 - t)
+        });
+      }, 500);
     });
 
     map.on("styledata", () => addMapLayers(map));
@@ -419,7 +489,7 @@ const App = () => {
           if (isTransport && feature.line) {
             popupRoot.render(<TransportPopup feature={feature} onClose={clearFocus} lang={lang} />);
           } else {
-            popupRoot.render(<PopupContent feature={feature} onClose={clearFocus} />);
+            popupRoot.render(<PopupContent feature={feature} onClose={clearFocus} lang={lang} />);
           }
 
           const popup = new maplibregl.Popup({ offset: 40, closeButton: false, closeOnClick: false, maxWidth: "380px" })
