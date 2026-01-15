@@ -1,6 +1,5 @@
 // Translations for Valencia Travel Guide
 // Supported: EN, ES, RU, FR, PT, PL, UK, AR, HR
-
 export const languages = [
     { code: "en", label: "English", short: "EN" },
     { code: "es", label: "Español", short: "ES" },
@@ -12,10 +11,9 @@ export const languages = [
     { code: "ar", label: "العربية", short: "AR" },
     { code: "hr", label: "Hrvatski", short: "HR" }
 ];
-
 export const translations = {
     en: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Places",
         guide: "Guide",
         routes: "Routes",
@@ -47,11 +45,15 @@ export const translations = {
         cat_metro: "Metro Stations",
         cat_tram: "Tram Stations",
         cat_train: "Train Stations",
+        cat_supermarkets: "Supermarkets",
+        cat_shops: "Shops",
+        cat_parks: "Parks & Gardens",
+        cat_entertainment: "Entertainment",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     es: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Lugares",
         guide: "Guía",
         routes: "Rutas",
@@ -83,11 +85,15 @@ export const translations = {
         cat_metro: "Estaciones de Metro",
         cat_tram: "Estaciones de Tranvía",
         cat_train: "Estaciones de Tren",
+        cat_supermarkets: "Supermercados",
+        cat_shops: "Tiendas",
+        cat_parks: "Parques y Jardines",
+        cat_entertainment: "Ocio y Cultura",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     ru: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Места",
         guide: "Гид",
         routes: "Маршруты",
@@ -119,11 +125,15 @@ export const translations = {
         cat_metro: "Станции метро",
         cat_tram: "Трамвайные остановки",
         cat_train: "Ж/Д вокзалы",
+        cat_supermarkets: "Супермаркеты",
+        cat_shops: "Магазины",
+        cat_parks: "Парки и сады",
+        cat_entertainment: "Развлечения",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     fr: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Lieux",
         guide: "Guide",
         routes: "Itinéraires",
@@ -155,11 +165,15 @@ export const translations = {
         cat_metro: "Stations de Métro",
         cat_tram: "Arrêts de Tram",
         cat_train: "Gares",
+        cat_supermarkets: "Supermarchés",
+        cat_shops: "Boutiques",
+        cat_parks: "Parcs et Jardins",
+        cat_entertainment: "Divertissement",
         googleMaps: "Google Maps",
         appleMaps: "Plans (Apple)"
     },
     pt: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Lugares",
         guide: "Guia",
         routes: "Rotas",
@@ -191,11 +205,15 @@ export const translations = {
         cat_metro: "Estações de Metro",
         cat_tram: "Paragens de Eléctrico",
         cat_train: "Estações de Comboio",
+        cat_supermarkets: "Supermercados",
+        cat_shops: "Lojas",
+        cat_parks: "Parques e Jardins",
+        cat_entertainment: "Entretenimento",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     pl: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Miejsca",
         guide: "Przewodnik",
         routes: "Trasy",
@@ -227,11 +245,15 @@ export const translations = {
         cat_metro: "Stacje Metra",
         cat_tram: "Przystanki Tramwajowe",
         cat_train: "Dworce Kolejowe",
+        cat_supermarkets: "Supermarkety",
+        cat_shops: "Sklepy",
+        cat_parks: "Parki i Ogrody",
+        cat_entertainment: "Rozrywka",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     uk: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Місця",
         guide: "Гід",
         routes: "Маршрути",
@@ -263,11 +285,15 @@ export const translations = {
         cat_metro: "Станції метро",
         cat_tram: "Трамвайні зупинки",
         cat_train: "Залізничні станції",
+        cat_supermarkets: "Супермаркети",
+        cat_shops: "Магазини",
+        cat_parks: "Парки та сади",
+        cat_entertainment: "Розваги",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     ar: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "الأماكن",
         guide: "الدليل",
         routes: "المسارات",
@@ -299,11 +325,15 @@ export const translations = {
         cat_metro: "محطات المترو",
         cat_tram: "محطات الترام",
         cat_train: "محطات القطار",
+        cat_supermarkets: "السوبر ماركت",
+        cat_shops: "المحلات التجارية",
+        cat_parks: "الحدائق والمتنزهات",
+        cat_entertainment: "الترفيه",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     },
     hr: {
-        brand: "Expath",
+        brand: "Navigrate",
         places: "Mjesta",
         guide: "Vodič",
         routes: "Rute",
@@ -335,11 +365,14 @@ export const translations = {
         cat_metro: "Stanice metroa",
         cat_tram: "Tramvajske stanice",
         cat_train: "Željezničke stanice",
+        cat_supermarkets: "Supermarketi",
+        cat_shops: "Trgovine",
+        cat_parks: "Parkovi i vrtovi",
+        cat_entertainment: "Zabava",
         googleMaps: "Google Maps",
         appleMaps: "Apple Maps"
     }
 };
-
 export const getTranslation = (lang, key) => {
     return translations[lang]?.[key] || translations.en[key] || key;
 };
