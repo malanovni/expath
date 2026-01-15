@@ -1,11 +1,9 @@
 // Valencia Travel Guide - Comprehensive POI & Metro Data
 // Last updated: 2025-12-15
-
 export const viewBounds = [
   [-0.6000, 39.00],
   [-0.3000, 39.70]
 ];
-
 // ============================================================================
 // LANDMARKS
 // ============================================================================
@@ -14,6 +12,7 @@ const landmarks = {
   label: "Landmarks",
   iconKey: "landmark",
   color: "#8b5cf6",
+  importance: 1, // Visible at all zoom levels
   features: [
     {
       name: "City of Arts and Sciences",
@@ -106,7 +105,6 @@ const landmarks = {
     }
   ]
 };
-
 // ============================================================================
 // CAFÉS
 // ============================================================================
@@ -115,33 +113,29 @@ const cafes = {
   label: "Cafés",
   iconKey: "coffee",
   color: "#d97706",
+  importance: 3, // Only visible when zoomed in
   features: [
-    {
-      name: "BASTARD Coffee & Kitchen",
-      coords: [-0.370500, 39.469500],
-      description: "Casual-industrial brunch café with all-day menus (pancakes, eggs, etc.) and solid coffee.",
-      tips: "Great for relaxed meals or brunch outings. Good place to study or get work done."
-    },
-    {
-      name: "Bluebell Coffee Roasters",
-      coords: [-0.373400, 39.463200],
-      description: "Specialty-coffee café known for nice coffees and brunches.",
-      tips: "A bit more relaxed atmosphere to enjoy a quiet cup."
-    },
-    {
-      name: "Nuezcafé",
-      coords: [-0.377500, 39.470500],
-      description: "Classic bakery-café just behind city hall — great for breakfast or a casual coffee with freshly baked croissants and pastries."
-    },
-    {
-      name: "Retrogusto Coffeemates",
-      coords: [-0.379000, 39.473600],
-      description: "Specialty-coffee spot inside the Mercado Central de Valencia offering espresso, V60/Chemex etc.",
-      tips: "Ideal if you love quality coffee and a central market vibe."
-    }
+    { name: "Cult Café", coords: [-0.3328, 39.4755], description: "Specialty coffee & casual café. Not recommended for long working sessions." },
+    { name: "MESTIZO", coords: [-0.3688, 39.4628], description: "Café de especialidad • Brunch • Tapas. Gets busy during brunch/lunch." },
+    { name: "UNAM Specialty Coffee & Brunch", coords: [-0.3785, 39.4748], description: "Specialty espresso & brunch." },
+    { name: "BOSCON | Specialty Coffee Roasters", coords: [-0.3792, 39.4735], description: "Coffee + brunch spot inside a roastery." },
+    { name: "Café Colomer", coords: [-0.3712, 39.4633], description: "Specialty Coffee Roasters Valencia." },
+    { name: "Félix Coffee & Bakery", coords: [-0.3622, 39.4815], description: "Espresso & bakery café." },
+    { name: "MAYAN COFFEES", coords: [-0.3850, 39.4738], description: "Organic specialty coffee, direct trade." },
+    { name: "COFFEE and BIKES", coords: [-0.3542, 39.4618], description: "Specialty coffee + chill spot for bike lovers." },
+    { name: "Coco Social House", coords: [-0.3735, 39.4735], description: "Breakfast & coffee place with a social vibe." },
+    { name: "Fran Cafe", coords: [-0.3625, 39.4820], description: "Neighborhood coffee shop." },
+    { name: "Doux-Amer Cabañal", coords: [-0.3355, 39.4668], description: "Café de especialidad & Brunch. Calm, bright spot good for working." },
+    { name: "Syra Coffee - Roger de Lauria", coords: [-0.3752, 39.4695], description: "Highly-rated minimal coffee spot." },
+    { name: "Butter Eatery House", coords: [-0.3745, 39.4615], description: "Specialty coffee + gluten-free brunch." },
+    { name: "El Coffi del Carmen", coords: [-0.3788, 39.4785], description: "Espresso bar in the heart of Carmen." },
+    { name: "FAV COFFEE", coords: [-0.3705, 39.4730], description: "Specialty coffee." },
+    { name: "Uncafe", coords: [-0.3762, 39.4705], description: "Popular minimalist coffee store." },
+    { name: "LET IT BLOOM", coords: [-0.3715, 39.4625], description: "Specialty Coffee n' Brunch." },
+    { name: "Casa Fran", coords: [-0.3650, 39.4855], description: "Specialty Coffee and Eatery. Laptop-friendly with good Wi-Fi." },
+    { name: "Bluebell Coffee Roasters", coords: [-0.3734, 39.4632], description: "Specialty-coffee café known for nice coffees and brunches." }
   ]
 };
-
 // ============================================================================
 // BANKS
 // ============================================================================
@@ -150,6 +144,7 @@ const banks = {
   label: "Banks",
   iconKey: "bank",
   color: "#10b981",
+  importance: 3, // Only visible when zoomed in
   features: [
     { name: "CaixaBank - General Avilés", coords: [-0.395000, 39.485200], description: "Av. General Avilés, 26-28" },
     { name: "CaixaBank - Central", coords: [-0.373800, 39.471500], description: "C. Pascual y Genís, 15, 46002 Valencia" },
@@ -161,7 +156,6 @@ const banks = {
     { name: "Banco Sabadell - Colón", coords: [-0.374500, 39.468500], description: "Calle Colón, 22" }
   ]
 };
-
 // ============================================================================
 // CLUBS & NIGHTLIFE
 // ============================================================================
@@ -170,6 +164,7 @@ const clubs = {
   label: "Clubs & Nightlife",
   iconKey: "music",
   color: "#ec4899",
+  importance: 2, // Visible at medium zoom
   features: [
     {
       name: "Marina Beach Club",
@@ -190,7 +185,6 @@ const clubs = {
     }
   ]
 };
-
 // ============================================================================
 // HOSPITALS
 // ============================================================================
@@ -199,6 +193,7 @@ const hospitals = {
   label: "Hospitals",
   iconKey: "hospital",
   color: "#ef4444",
+  importance: 1, // Always visible (important)
   features: [
     {
       name: "La Fe University Hospital",
@@ -220,7 +215,6 @@ const hospitals = {
     }
   ]
 };
-
 // ============================================================================
 // POOLS & GYMS
 // ============================================================================
@@ -229,6 +223,7 @@ const pools = {
   label: "Pools & Gyms",
   iconKey: "dumbbell",
   color: "#22c55e",
+  importance: 3, // Only visible when zoomed in
   features: [
     { name: "Benimaclet Pool", coords: [-0.360850, 39.484450], description: "Public pool in Benimaclet" },
     { name: "Piscina Parque del Oeste", coords: [-0.403600, 39.467800], description: "Large outdoor pool with slides in Parque del Oeste" },
@@ -237,7 +232,6 @@ const pools = {
     { name: "La Hípica (Outdoor Pool)", coords: [-0.362500, 39.479500], description: "Outdoor summer pool near Viveros garden" }
   ]
 };
-
 // ============================================================================
 // METRO STATIONS (All Lines)
 // ============================================================================
@@ -246,6 +240,7 @@ const metroStations = {
   label: "Metro Stations",
   iconKey: "trainfront",
   color: "#3b82f6",
+  importance: 1, // Always visible (important infrastructure)
   features: [
     // Line 1 Stations (Yellow)
     { name: "Bétera", coords: [-0.457489, 39.590731], description: "Northern Terminus. Quiet town north of Valencia.", line: "1" },
@@ -273,7 +268,6 @@ const metroStations = {
     { name: "Picanya", coords: [-0.436579, 39.433100], description: "Southern town.", line: "1,2,7" },
     { name: "Torrent", coords: [-0.460833, 39.436111], description: "Major town southwest of Valencia. Connection to Line 2, 7 terminus.", line: "1" },
     { name: "Castelló", coords: [-0.516111, 39.083889], description: "Southern Terminus (Villanueva de Castellón).", line: "1" },
-
     // Line 2 Stations (Pink)
     { name: "Llíria", coords: [-0.590278, 39.622778], description: "Northwest Terminus. Known as the \"City of Music\".", line: "2" },
     { name: "Benaguasil (2n)", coords: [-0.584167, 39.599167], description: "Town stop.", line: "2" },
@@ -283,7 +277,6 @@ const metroStations = {
     { name: "Paterna", coords: [-0.441944, 39.498611], description: "Major town west of Valencia.", line: "2" },
     { name: "Les Carolines - Fira", coords: [-0.425000, 39.498889], description: "Fairgrounds. Walkable to Fira València.", line: "2" },
     { name: "Torrent Avinguda", coords: [-0.472778, 39.431944], description: "Terminus. Main avenue of Torrent. End of Line 2 & 7.", line: "2,7" },
-
     // Line 3 Stations (Red) - Airport Line
     { name: "Rafelbunyol", coords: [-0.330862, 39.587994], description: "Northeast Terminus.", line: "3" },
     { name: "Museros", coords: [-0.340856, 39.561662], description: "Town stop.", line: "3" },
@@ -308,13 +301,11 @@ const metroStations = {
     { name: "Manises", coords: [-0.459195, 39.489457], description: "Town of Manises (Ceramics).", line: "3,5,9" },
     { name: "Rosas", coords: [-0.467141, 39.492675], description: "Last stop before Airport / Split.", line: "3,5,9" },
     { name: "Aeroport", coords: [-0.474919, 39.492367], description: "Airport. Inside the terminal. Special Ticket Needed (Zone ABC).", line: "3,5" },
-
     // Line 5 Stations (Green)
     { name: "Marítim", coords: [-0.337722, 39.468694], description: "Port / Beach Hub. End of the heavy metro. Transfer: Tram 6, 8 to beach.", line: "5,7" },
     { name: "Ayora", coords: [-0.344167, 39.467778], description: "Student residential area.", line: "5,7" },
     { name: "Amistat", coords: [-0.353333, 39.470556], description: "Student residential area.", line: "5,7" },
     { name: "Aragó", coords: [-0.360556, 39.472222], description: "Mestalla Stadium. Valencia CF Football stadium.", line: "5,7" },
-
     // Line 7 Stations (Orange)
     { name: "Marítim", coords: [-0.337722, 39.468694], description: "Port / Beach Hub. End of the heavy metro. Transfer: Tram 6, 8 to beach.", line: "5,7" },
     { name: "Ayora", coords: [-0.344167, 39.467778], description: "Student residential area.", line: "5,7" },
@@ -332,7 +323,6 @@ const metroStations = {
     { name: "Picanya", coords: [-0.436579, 39.433100], description: "Southern town.", line: "1,2,7" },
     { name: "Torrent", coords: [-0.460833, 39.436111], description: "Major town southwest of Valencia. Connection to Line 2, 7 terminus.", line: "1" },
     { name: "Torrent Avinguda", coords: [-0.472778, 39.431944], description: "Terminus. End for Line 2 & 7.", line: "2,7" },
-
     // Line 10 Stations (Light Green Tram)
     { name: "Alacant (Line 10)", coords: [-0.377222, 39.464167], description: "City Center. Next to Main Train Station. Tunnel: Walk to Xàtiva/Bailén.", line: "10" },
     { name: "Russafa", coords: [-0.372778, 39.461944], description: "Trendy Neighborhood. Bars, cafes, market.", line: "10" },
@@ -342,7 +332,6 @@ const metroStations = {
     { name: "Oceanogràfic", coords: [-0.347222, 39.451389], description: "Aquarium. Access to the Oceanogràfic.", line: "10" },
     { name: "Moreres", coords: [-0.339444, 39.449722], description: "Developing residential area near port.", line: "10" },
     { name: "Natzaret", coords: [-0.331389, 39.447500], description: "Terminus. Seaside neighborhood (no beach access).", line: "10" },
-
     // Line 9 Stations (Brown)
     { name: "Alboraia Peris Aragó", coords: [-0.352330, 39.500760], description: "Famous for Horchata (Tiger nut milk).", line: "3,9" },
     { name: "Alboraia Palmaret", coords: [-0.355160, 39.495689], description: "Entry to Valencia city.", line: "3,9" },
@@ -367,7 +356,6 @@ const metroStations = {
     { name: "Riba-roja de Túria", coords: [-0.565982, 39.546875], description: "Terminus. Riba-roja town center.", line: "9" }
   ]
 };
-
 // ============================================================================
 // TRAM STATIONS (Line 4)
 // ============================================================================
@@ -392,7 +380,6 @@ const tramStations = {
     { name: "Dr. Lluch", coords: [-0.328089, 39.468424], description: "Terminus. Cabanyal neighborhood. End of Line 4.", line: "4,6" }
   ]
 };
-
 // ============================================================================
 // TRAIN STATIONS
 // ============================================================================
@@ -406,7 +393,70 @@ const trainStations = {
     { name: "Joaquín Sorolla (AVE)", coords: [-0.3822, 39.4614], description: "High-speed AVE hub for Madrid, Barcelona connections" }
   ]
 };
-
+// ============================================================================
+// SUPERMARKETS
+// ============================================================================
+const supermarkets = {
+  id: "supermarkets",
+  label: "Supermarkets",
+  iconKey: "bank", // Using bank icon for now or building
+  color: "#059669",
+  importance: 3,
+  features: [
+    { name: "Mercadona", coords: [-0.3745, 39.4702], description: "Spain’s most popular grocery chain with good prices and wide product range. Location: C/ Roger de Lauria." },
+    { name: "Lidl", coords: [-0.3450, 39.4655], description: "Discount supermarket known for weekly deals and budget-friendly basics. Location: Av. del Port." },
+    { name: "Consum", coords: [-0.3810, 39.4715], description: "Local cooperative known for fresh products and quality local goods. Location: C/ de l'Hospital." },
+    { name: "Carrefour", coords: [-0.3530, 39.4560], description: "Large French hypermarket chain with a very broad range. Location: C.C. El Saler." },
+    { name: "Alcampo", coords: [-0.3305, 39.5010], description: "Bigger hypermarkets with extensive food and non-food departments. Location: Alboraya." }
+  ]
+};
+// ============================================================================
+// SHOPS
+// ============================================================================
+const shops = {
+  id: "shops",
+  label: "Shops",
+  iconKey: "landmark",
+  color: "#6366f1",
+  importance: 3,
+  features: [
+    { name: "MediaMarkt", coords: [-0.3730, 39.4685], description: "Large electronics and tech shop. Location: C/ Colón." },
+    { name: "Lefties", coords: [-0.3755, 39.4695], description: "Inditex’s low-cost fashion label store. Location: C/ Colón." },
+    { name: "El Corte Inglés", coords: [-0.3735, 39.4705], description: "Spain’s most famous department store. Ideal for convenient one-stop shopping. Location: Pintor Sorolla." },
+    { name: "Decathlon Campanar", coords: [-0.3950, 39.4815], description: "Everything for sports and outdoor activities." },
+    { name: "Tiger (Flying Tiger)", coords: [-0.3758, 39.4682], description: "Affordable home goods, stationery, and fun essentials. Location: P. de Russafa." }
+  ]
+};
+// ============================================================================
+// PARKS
+// ============================================================================
+const parks = {
+  id: "parks",
+  label: "Parks & Gardens",
+  iconKey: "landmark",
+  color: "#10b981",
+  importance: 2,
+  features: [
+    { name: "Turia Gardens", coords: [-0.3650, 39.4715], description: "A green park running through the city. Perfect for walking, cycling, and picnics." },
+    { name: "Viveros Gardens", coords: [-0.3670, 39.4795], description: "Quiet, leafy park near the city center. Popular for relaxing and weekend strolls." },
+    { name: "Gulliver Park", coords: [-0.3595, 39.4625], description: "Fun park with a giant slide sculpture. Ideal if you have kids or visiting family." }
+  ]
+};
+// ============================================================================
+// ENTERTAINMENT
+// ============================================================================
+const entertainment = {
+  id: "entertainment",
+  label: "Entertainment",
+  iconKey: "music",
+  color: "#ec4899",
+  importance: 2,
+  features: [
+    { name: "Palau de la Música", coords: [-0.3605, 39.4665], description: "Main concert hall in Valencia, located in Turia Gardens." },
+    { name: "City of Arts and Sciences", coords: [-0.3505, 39.4545], description: "Valencia’s most famous landmark. Includes museums, an aquarium, and IMAX cinema." },
+    { name: "La Rambleta", coords: [-0.3920, 39.4445], description: "Cultural venue with theater, live music, and comedy. Popular with locals." }
+  ]
+};
 // ============================================================================
 // COMBINED CATEGORIES EXPORT
 // ============================================================================
@@ -414,6 +464,10 @@ export const categories = [
   landmarks,
   cafes,
   banks,
+  supermarkets,
+  shops,
+  parks,
+  entertainment,
   clubs,
   hospitals,
   pools,
@@ -421,7 +475,6 @@ export const categories = [
   tramStations,
   trainStations
 ];
-
 // ============================================================================
 // METRO LINE INFO (for guide panel)
 // ============================================================================
@@ -515,7 +568,6 @@ export const metroLines = [
     keyStations: ["Alacant (Center)", "Russafa", "Arts & Sciences", "Oceanogràfic"]
   }
 ];
-
 // ============================================================================
 // METRO GUIDE INFO
 // ============================================================================
@@ -527,7 +579,6 @@ export const metroGuide = {
   },
   importantNote: "L1, L2, L7 share the South tunnel. L3, L5, L9 share the Main East-West tunnel."
 };
-
 // ============================================================================
 // ROUTES / PATH LINES
 // ============================================================================
