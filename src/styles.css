@@ -1,1609 +1,378 @@
-/* ============================================================================
-   VALENCIA TRAVEL GUIDE - PREMIUM REDESIGN
-   Theme: Midnight in Valencia (Glassmorphism & Gradients)
-   ============================================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
-
-/* ============================================================================
-   ROOT VARIABLES
-   ============================================================================ */
-:root {
-  /* BACKGROUNDS */
-  --bg-deep: #030712;
-  --bg-surface: #0f172a;
-  --bg-elevated: #1e293b;
-
-  /* ENHANCED GLASSMORPHISM */
-  --glass-bg: rgba(15, 23, 42, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-highlight: rgba(255, 255, 255, 0.15);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-  --glass-glow: 0 0 40px rgba(99, 102, 241, 0.15);
-  --backdrop-blur: blur(24px);
-
-  /* TEXT */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-
-  /* PREMIUM ACCENTS - VIBRANT */
-  --accent-primary: #818cf8;
-  --accent-secondary: #f472b6;
-  --accent-tertiary: #2dd4bf;
-  --accent-orange: #fb923c;
-  --accent-glow: rgba(129, 140, 248, 0.4);
-
-  /* DYNAMIC GRADIENTS */
-  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-  --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-  --gradient-cool: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
-  --gradient-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(236, 72, 153, 0.3) 100%);
-  --gradient-border: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
-
-  /* DIMENSIONS */
-  --panel-width: 380px;
-  --header-height: 0px;
-
-  /* UTILS */
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 24px;
-  --radius-full: 999px;
-
-  /* SMOOTH ANIMATIONS */
-  --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --transition: all 0.3s var(--ease-smooth);
-  --transition-fast: all 0.15s var(--ease-smooth);
-  --transition-bounce: all 0.4s var(--ease-elastic);
-}
-
-/* ============================================================================
-   RESET & BASE
-   ============================================================================ */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--bg-deep);
-  color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
-}
-
-#root {
-  height: 100%;
-  width: 100%;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-/* ============================================================================
-   LOADING SCREEN
-   ============================================================================ */
-.loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.loading-screen.fade-out {
-  opacity: 0;
-  transform: scale(1.05);
-  pointer-events: none;
-}
-
-.loading-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-}
-
-.loading-track {
-  position: relative;
-  width: 300px;
-  height: 60px;
-}
-
-.track-line {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, #6366f1, #a855f7, #6366f1, transparent);
-  border-radius: 2px;
-}
-
-.track-dots {
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-
-.track-dots span {
-  width: 8px;
-  height: 8px;
-  background: #4f46e5;
-  border-radius: 50%;
-  animation: dotPulse 1.5s ease-in-out infinite;
-}
-
-.track-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.track-dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-.track-dots span:nth-child(4) {
-  animation-delay: 0.6s;
-}
-
-.track-dots span:nth-child(5) {
-  animation-delay: 0.8s;
-}
-
-@keyframes dotPulse {
-
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}
-
-.tram-container {
-  position: absolute;
-  bottom: 18px;
-  left: -60px;
-  animation: tramMove 3s ease-in-out infinite;
-}
-
-@keyframes tramMove {
-  0% {
-    left: -60px;
-  }
-
-  50% {
-    left: calc(100% + 10px);
-  }
-
-  50.01% {
-    left: -60px;
-  }
-
-  100% {
-    left: calc(100% + 10px);
-  }
-}
-
-.tram {
-  position: relative;
-}
-
-.tram-body {
-  width: 50px;
-  height: 24px;
-  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
-  border-radius: 6px 6px 2px 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 4px;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-}
-
-.tram-window {
-  width: 10px;
-  height: 12px;
-  background: #7dd3fc;
-  border-radius: 2px;
-  opacity: 0.9;
-}
-
-.tram-wheels {
-  position: absolute;
-  bottom: -6px;
-  left: 6px;
-  right: 6px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.wheel {
-  width: 10px;
-  height: 10px;
-  background: #1e293b;
-  border-radius: 50%;
-  border: 2px solid #475569;
-  animation: wheelSpin 0.5s linear infinite;
-}
-
-@keyframes wheelSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.loading-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.loading-brand {
-  font-family: 'Outfit', sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 2s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
-}
-
-.loading-subtitle {
-  font-size: 14px;
-  color: #94a3b8;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.loading-bar {
-  width: 200px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.loading-progress {
-  height: 100%;
-  background: linear-gradient(90deg, #6366f1, #a855f7, #6366f1);
-  background-size: 200% 100%;
-  border-radius: 2px;
-  animation: progressMove 1.5s ease-in-out infinite, progressGrow 2s ease-out forwards;
-}
-
-@keyframes progressMove {
-  0% {
-    background-position: 100% 0;
-  }
-
-  100% {
-    background-position: -100% 0;
-  }
-}
-
-@keyframes progressGrow {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 100%;
-  }
-}
-
-/* ============================================================================
-   APP CONTAINER (FULLSCREEN MAP)
-   ============================================================================ */
-.app-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.map-background {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-/* ============================================================================
-   FLOATING GLASS PANEL (LEFT)
-   ============================================================================ */
-.glass-panel {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  bottom: 24px;
-  width: var(--panel-width);
-  background: var(--glass-bg);
-  backdrop-filter: var(--backdrop-blur);
-  -webkit-backdrop-filter: var(--backdrop-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--glass-shadow);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: slideInLeft 0.6s var(--ease-elastic);
-}
-
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* HEADER AREA */
-.panel-header {
-  padding: 24px 24px 16px;
-  border-bottom: 1px solid var(--glass-border);
-}
-
-/* Drawer handle - hidden on desktop, visible on mobile */
-.drawer-handle {
-  display: none;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.brand-icon {
-  width: 32px;
-  height: 32px;
-  background: var(--gradient-brand);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 18px;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-}
-
-.brand-text {
-  font-family: 'Outfit', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #f0abfc 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s ease-in-out infinite;
-  background-size: 200% 100%;
-}
-
-@keyframes shimmer {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* NAV TABS */
-.nav-tabs {
-  display: flex;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 4px;
-  border-radius: var(--radius-md);
-}
-
-.nav-tab {
-  flex: 1;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  padding: 10px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.nav-tab:hover {
-  color: var(--text-primary);
-}
-
-.nav-tab.active {
-  background: var(--glass-highlight);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* CONTENT AREA */
-.panel-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--glass-border) transparent;
-}
-
-.panel-content::-webkit-scrollbar {
-  width: 4px;
-}
-
-.panel-content::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 4px;
-}
-
-/* SECTIONS */
-.section-title {
-  font-size: 12px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  margin: 24px 0 12px;
-  font-weight: 700;
-}
-
-.section-title:first-child {
-  margin-top: 0;
-}
-
-/* SEARCH INPUT */
-.search-wrapper {
-  position: relative;
-  margin-bottom: 24px;
-}
-
-.search-input {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--glass-border);
-  padding: 14px 14px 14px 44px;
-  border-radius: var(--radius-md);
-  color: white;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  transition: var(--transition);
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-}
-
-.search-icon {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  width: 18px;
-  height: 18px;
-}
-
-/* LIST ITEMS - PREMIUM */
-.list-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px;
-  margin-bottom: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.list-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-  transition: left 0.5s ease;
-}
-
-.list-item:hover::before {
-  left: 100%;
-}
-
-.list-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(129, 140, 248, 0.3);
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(129, 140, 248, 0.1);
-}
-
-.item-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.item-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: var(--transition);
-}
-
-.list-item:hover .item-icon {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-.item-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.item-label {
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: -0.01em;
-}
-
-.item-desc {
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
-/* SWITCH TOGGLE - PREMIUM */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 26px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.12);
-  transition: all 0.4s var(--ease-elastic);
-  border-radius: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 2px;
-  background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%);
-  transition: all 0.4s var(--ease-elastic);
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-input:checked+.slider {
-  background: var(--gradient-brand);
-  border-color: rgba(129, 140, 248, 0.5);
-  box-shadow: 0 0 20px rgba(129, 140, 248, 0.4);
-}
-
-input:checked+.slider:before {
-  transform: translateX(18px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-}
-
-/* ============================================================================
-   METRO GUIDE CARDS
-   ============================================================================ */
-.metro-card {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  margin-bottom: 12px;
-}
-
-.metro-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.metro-badge {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.metro-name {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.metro-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.station-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.station-pill {
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 4px 8px;
-  border-radius: 99px;
-  color: var(--text-secondary);
-}
-
-/* ============================================================================
-   FLOATING ACTIONS (TOP RIGHT) - PREMIUM
-   ============================================================================ */
-.floating-actions {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.fab {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--backdrop-blur);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: var(--glass-shadow);
-}
-
-.fab:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-3px) scale(1.05);
-  border-color: rgba(129, 140, 248, 0.3);
-  box-shadow: var(--glass-shadow), 0 0 30px rgba(129, 140, 248, 0.2);
-}
-
-.fab.active {
-  background: var(--gradient-brand);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
-}
-
-.fab.active:hover {
-  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
-}
-
-/* ============================================================================
-   USER LOCATION MARKER (Pulsing dot)
-   ============================================================================ */
-.user-location-marker {
-  position: relative;
-  width: 20px;
-  height: 20px;
-}
-
-.user-dot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 14px;
-  height: 14px;
-  background: #3b82f6;
-  border: 3px solid white;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
-  z-index: 2;
-}
-
-.user-pulse {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  background: rgba(59, 130, 246, 0.3);
-  border-radius: 50%;
-  animation: pulse 2s ease-out infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
-  }
-}
-
-/* ============================================================================
-   CUSTOM MAP MARKERS - PREMIUM
-   ============================================================================ */
-.custom-marker {
-  width: 38px;
-  height: 38px;
-  cursor: pointer;
-  transition: transform 0.4s var(--ease-elastic), filter 0.3s ease;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
-}
-
-.custom-marker:hover {
-  transform: scale(1.25) translateY(-6px);
-  z-index: 50;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
-}
-
-.marker-pin {
-  width: 100%;
-  height: 100%;
-  background: var(--color);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border: 2.5px solid white;
-  position: relative;
-}
-
-.marker-pin::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50% 50% 50% 0;
-  background: var(--color);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.custom-marker:hover .marker-pin::before {
-  opacity: 0.4;
-  animation: markerPulse 1.5s ease-out infinite;
-}
-
-@keyframes markerPulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.marker-icon {
-  transform: rotate(45deg);
-  color: white;
-  width: 18px;
-  height: 18px;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-}
-
-/* ============================================================================
-   MAP POPUPS - LIGHT THEME
-   ============================================================================ */
-.maplibregl-popup-content {
-  background: #ffffff !important;
-  color: #1e293b !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-radius: var(--radius-md) !important;
-  padding: 0 !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2) !important;
-}
-
-.maplibregl-popup-tip {
-  border-top-color: #ffffff !important;
-}
-
-.popup-container {
-  padding: 16px;
-  width: 280px;
-  position: relative;
-}
-
-.popup-light {
-  color: #1e293b;
-}
-
-.popup-light .popup-title {
-  color: #0f172a;
-}
-
-.popup-light .popup-desc {
-  color: #475569;
-}
-
-.popup-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  padding-right: 24px;
-}
-
-.popup-title {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: #0f172a;
-}
-
-.popup-desc {
-  font-size: 13px;
-  color: #64748b;
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.popup-tip {
-  background: #fef3c7;
-  border-left: 3px solid #f59e0b;
-  padding: 8px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #92400e;
-}
-
-.popup-lines-badge {
-  margin-top: 8px;
-  font-size: 12px;
-  color: #64748b;
-}
-
-.popup-lines-badge .line-label {
-  font-weight: 600;
-  color: #475569;
-}
-
-.popup-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #e2e8f0;
-}
-
-.map-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.map-btn.google {
-  background: #f1f5f9;
-  color: #334155;
-  border: 1px solid #cbd5e1;
-}
-
-.map-btn.google:hover {
-  background: #F4B400;
-  /* Google Yellowish accent or just darker grey */
-  background: #4285F4;
-  color: white;
-  border-color: #4285F4;
-}
-
-.map-btn.apple {
-  background: #000000;
-  color: white;
-}
-
-.map-btn.apple:hover {
-  background: #333333;
-  transform: translateY(-2px);
-}
-
-/* ============================================================================
-   LANGUAGE SELECTOR
-   ============================================================================ */
-.brand-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.lang-selector {
-  position: relative;
-}
-
-.lang-trigger {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.lang-trigger:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--text-primary);
-}
-
-.lang-trigger .rotated {
-  transform: rotate(180deg);
-}
-
-.lang-dropdown {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  width: 160px;
-  background: var(--bg-surface);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  z-index: 100;
-  overflow: hidden;
-  animation: dropIn 0.2s ease;
-}
-
-@keyframes dropIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.lang-option {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 13px;
-  cursor: pointer;
-  transition: var(--transition);
-  text-align: left;
-}
-
-.lang-option:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-primary);
-}
-
-.lang-option.active {
-  background: var(--accent-primary);
-  color: white;
-}
-
-.lang-short {
-  font-weight: 700;
-  font-size: 11px;
-  width: 24px;
-  text-align: center;
-}
-
-.lang-name {
-  flex: 1;
-}
-
-/* ============================================================================
-   TRANSPORT POPUP - LIGHT VERTICAL LAYOUT
-   ============================================================================ */
-.transport-popup {
-  width: 340px;
-  max-height: 450px;
-  overflow-y: auto;
-}
-
-.transport-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 12px;
-}
-
-.line-detail-card {
-  background: #f8fafc;
-  border-left: 4px solid var(--line-color);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-}
-
-.line-header-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.line-badge {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 13px;
-  color: white;
-}
-
-.line-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-/* Schedule vertical layout */
-.schedule-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 14px;
-  padding: 10px;
-  background: white;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-}
-
-.schedule-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-}
-
-.schedule-label {
-  color: #64748b;
-}
-
-.schedule-value {
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.schedule-info-row {
-  display: flex;
-  gap: 16px;
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-}
-
-/* Stops vertical list */
-.stops-section {
-  margin-top: 8px;
-}
-
-.stops-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #94a3b8;
-  margin-bottom: 8px;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-}
-
-.stops-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-height: 180px;
-  overflow-y: auto;
-  padding-left: 4px;
-}
-
-.stop-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 0;
-  position: relative;
-}
-
-.stop-row::before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #e2e8f0;
-}
-
-.stop-row:first-child::before {
-  top: 50%;
-}
-
-.stop-row:last-child::before {
-  bottom: 50%;
-}
-
-.stop-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  flex-shrink: 0;
-}
-
-.stop-name {
-  font-size: 12px;
-  color: #64748b;
-}
-
-.stop-row.current .stop-dot {
-  width: 14px;
-  height: 14px;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
-}
-
-.stop-row.current .stop-name {
-  font-weight: 700;
-  color: #1e293b;
-}
-
-/* ============================================================================
-   FOCUS MODE (Dim other markers when one is selected)
-   ============================================================================ */
-.custom-marker.dimmed {
-  opacity: 0.15;
-  pointer-events: none;
-  filter: grayscale(80%);
-  transform: scale(0.8);
-}
-
-.popup-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-}
-
-.popup-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-/* ============================================================================
-   TRANSPORT POPUP (Metro/Tram station details)
-   ============================================================================ */
-.transport-popup {
-  padding: 16px;
-  width: 340px;
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.transport-lines {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.line-detail {
-  background: rgba(0, 0, 0, 0.3);
-  border-left: 4px solid;
-  border-radius: var(--radius-sm);
-  padding: 12px;
-}
-
-.line-header-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.line-badge-small {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 12px;
-  color: white;
-}
-
-.line-name-small {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.line-schedule {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
-.schedule-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.schedule-row strong {
-  color: var(--text-primary);
-}
-
-.schedule-info {
-  display: flex;
-  gap: 12px;
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.all-stops {
-  margin-top: 8px;
-}
-
-.stops-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  letter-spacing: 0.05em;
-}
-
-.stops-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-}
-
-.stop-item {
-  font-size: 11px;
-  padding: 3px 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  color: var(--text-secondary);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.stop-item.current {
-  background: var(--accent-primary);
-  color: white;
-  font-weight: 600;
-}
-
-.stop-arrow {
-  color: var(--text-muted);
-}
-
-/* ============================================================================
-   RESPONSIVE - PREMIUM MOBILE EXPERIENCE
-   ============================================================================ */
-
-/* Tablet & Mobile (Bottom Sheet Layout) */
-@media (max-width: 768px) {
-    .app-container {
-        display: flex;
-        flex-direction: column;
+// Translations for Valencia Travel Guide
+// Supported: EN, ES, RU, FR, PT, PL, UK, AR, HR
+export const languages = [
+    { code: "en", label: "English", short: "EN" },
+    { code: "es", label: "Español", short: "ES" },
+    { code: "ru", label: "Русский", short: "RU" },
+    { code: "fr", label: "Français", short: "FR" },
+    { code: "pt", label: "Português", short: "PT" },
+    { code: "pl", label: "Polski", short: "PL" },
+    { code: "uk", label: "Українська", short: "UA" },
+    { code: "ar", label: "العربية", short: "AR" },
+    { code: "hr", label: "Hrvatski", short: "HR" }
+];
+export const translations = {
+    en: {
+        brand: "Navigrate",
+        places: "Places",
+        guide: "Guide",
+        routes: "Routes",
+        search: "Search landmarks, cafés...",
+        categories: "Categories",
+        locations: "locations",
+        ticketsAndTips: "Tickets & Tips",
+        zoneA: "Zone A",
+        airport: "Airport",
+        metroLines: "Metro Lines",
+        transitLayers: "Transit Layers",
+        peak: "Peak",
+        offPeak: "Off-peak",
+        first: "First",
+        last: "Last",
+        allStops: "All stops",
+        switchToSatellite: "Satellite",
+        switchToMap: "Map",
+        resetView: "Reset",
+        topView: "Top View",
+        angledView: "3D View",
+        myLocation: "My Location",
+        cat_landmarks: "Landmarks",
+        cat_cafes: "Cafés",
+        cat_banks: "Banks",
+        cat_clubs: "Clubs & Nightlife",
+        cat_hospitals: "Hospitals",
+        cat_pools: "Pools & Gyms",
+        cat_metro: "Metro Stations",
+        cat_tram: "Tram Stations",
+        cat_train: "Train Stations",
+        cat_supermarkets: "Supermarkets",
+        cat_shops: "Shops",
+        cat_parks: "Parks & Gardens",
+        cat_entertainment: "Entertainment",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    es: {
+        brand: "Navigrate",
+        places: "Lugares",
+        guide: "Guía",
+        routes: "Rutas",
+        search: "Buscar lugares, cafés...",
+        categories: "Categorías",
+        locations: "ubicaciones",
+        ticketsAndTips: "Billetes y Consejos",
+        zoneA: "Zona A",
+        airport: "Aeropuerto",
+        metroLines: "Líneas de Metro",
+        transitLayers: "Capas de Tránsito",
+        peak: "Hora punta",
+        offPeak: "Fuera de punta",
+        first: "Primero",
+        last: "Último",
+        allStops: "Todas las paradas",
+        switchToSatellite: "Satélite",
+        switchToMap: "Mapa",
+        resetView: "Restablecer",
+        topView: "Vista Superior",
+        angledView: "Vista 3D",
+        myLocation: "Mi ubicación",
+        cat_landmarks: "Monumentos",
+        cat_cafes: "Cafeterías",
+        cat_banks: "Bancos",
+        cat_clubs: "Clubs y Ocio",
+        cat_hospitals: "Hospitales",
+        cat_pools: "Piscinas y Gimnasios",
+        cat_metro: "Estaciones de Metro",
+        cat_tram: "Estaciones de Tranvía",
+        cat_train: "Estaciones de Tren",
+        cat_supermarkets: "Supermercados",
+        cat_shops: "Tiendas",
+        cat_parks: "Parques y Jardines",
+        cat_entertainment: "Ocio y Cultura",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    ru: {
+        brand: "Navigrate",
+        places: "Места",
+        guide: "Гид",
+        routes: "Маршруты",
+        search: "Поиск достопримечательностей...",
+        categories: "Категории",
+        locations: "локаций",
+        ticketsAndTips: "Билеты и советы",
+        zoneA: "Зона А",
+        airport: "Аэропорт",
+        metroLines: "Линии метро",
+        transitLayers: "Транспортные маршруты",
+        peak: "Час пик",
+        offPeak: "Вне часа пик",
+        first: "Первый",
+        last: "Последний",
+        allStops: "Все остановки",
+        switchToSatellite: "Спутник",
+        switchToMap: "Карта",
+        resetView: "Сброс",
+        topView: "Сверху",
+        angledView: "3D вид",
+        myLocation: "Моя локация",
+        cat_landmarks: "Достопримечательности",
+        cat_cafes: "Кафе",
+        cat_banks: "Банки",
+        cat_clubs: "Клубы и ночная жизнь",
+        cat_hospitals: "Больницы",
+        cat_pools: "Бассейны и Залы",
+        cat_metro: "Станции метро",
+        cat_tram: "Трамвайные остановки",
+        cat_train: "Ж/Д вокзалы",
+        cat_supermarkets: "Супермаркеты",
+        cat_shops: "Магазины",
+        cat_parks: "Парки и сады",
+        cat_entertainment: "Развлечения",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    fr: {
+        brand: "Navigrate",
+        places: "Lieux",
+        guide: "Guide",
+        routes: "Itinéraires",
+        search: "Rechercher des lieux...",
+        categories: "Catégories",
+        locations: "emplacements",
+        ticketsAndTips: "Billets et Conseils",
+        zoneA: "Zone A",
+        airport: "Aéroport",
+        metroLines: "Lignes de Métro",
+        transitLayers: "Lignes de Transport",
+        peak: "Heure de pointe",
+        offPeak: "Heures creuses",
+        first: "Premier",
+        last: "Dernier",
+        allStops: "Tous les arrêts",
+        switchToSatellite: "Satellite",
+        switchToMap: "Carte",
+        resetView: "Réinitialiser",
+        topView: "Vue de dessus",
+        angledView: "Vue 3D",
+        myLocation: "Ma position",
+        cat_landmarks: "Monuments",
+        cat_cafes: "Cafés",
+        cat_banks: "Banques",
+        cat_clubs: "Clubs et Vie Nocturne",
+        cat_hospitals: "Hôpitaux",
+        cat_pools: "Piscines et Gyms",
+        cat_metro: "Stations de Métro",
+        cat_tram: "Arrêts de Tram",
+        cat_train: "Gares",
+        cat_supermarkets: "Supermarchés",
+        cat_shops: "Boutiques",
+        cat_parks: "Parcs et Jardins",
+        cat_entertainment: "Divertissement",
+        googleMaps: "Google Maps",
+        appleMaps: "Plans (Apple)"
+    },
+    pt: {
+        brand: "Navigrate",
+        places: "Lugares",
+        guide: "Guia",
+        routes: "Rotas",
+        search: "Pesquisar locais...",
+        categories: "Categorias",
+        locations: "locais",
+        ticketsAndTips: "Bilhetes e Dicas",
+        zoneA: "Zona A",
+        airport: "Aeroporto",
+        metroLines: "Linhas de Metro",
+        transitLayers: "Camadas de Trânsito",
+        peak: "Hora de pico",
+        offPeak: "Fora de pico",
+        first: "Primeiro",
+        last: "Último",
+        allStops: "Todas as paragens",
+        switchToSatellite: "Satélite",
+        switchToMap: "Mapa",
+        resetView: "Redefinir",
+        topView: "Vista Superior",
+        angledView: "Vista 3D",
+        myLocation: "Minha localização",
+        cat_landmarks: "Monumentos",
+        cat_cafes: "Cafés",
+        cat_banks: "Bancos",
+        cat_clubs: "Clubes e Vida Noturna",
+        cat_hospitals: "Hospitais",
+        cat_pools: "Piscinas e Ginásios",
+        cat_metro: "Estações de Metro",
+        cat_tram: "Paragens de Eléctrico",
+        cat_train: "Estações de Comboio",
+        cat_supermarkets: "Supermercados",
+        cat_shops: "Lojas",
+        cat_parks: "Parques e Jardins",
+        cat_entertainment: "Entretenimento",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    pl: {
+        brand: "Navigrate",
+        places: "Miejsca",
+        guide: "Przewodnik",
+        routes: "Trasy",
+        search: "Szukaj miejsc...",
+        categories: "Kategorie",
+        locations: "lokalizacji",
+        ticketsAndTips: "Bilety i Porady",
+        zoneA: "Strefa A",
+        airport: "Lotnisko",
+        metroLines: "Linie Metra",
+        transitLayers: "Warstwy Transportu",
+        peak: "Godziny szczytu",
+        offPeak: "Poza szczytem",
+        first: "Pierwszy",
+        last: "Ostatni",
+        allStops: "Wszystkie przystanki",
+        switchToSatellite: "Satelita",
+        switchToMap: "Mapa",
+        resetView: "Resetuj",
+        topView: "Widok z góry",
+        angledView: "Widok 3D",
+        myLocation: "Moja lokalizacja",
+        cat_landmarks: "Zabytki",
+        cat_cafes: "Kawiarnie",
+        cat_banks: "Banki",
+        cat_clubs: "Kluby i Nocne Życie",
+        cat_hospitals: "Szpitale",
+        cat_pools: "Baseny i Siłownie",
+        cat_metro: "Stacje Metra",
+        cat_tram: "Przystanki Tramwajowe",
+        cat_train: "Dworce Kolejowe",
+        cat_supermarkets: "Supermarkety",
+        cat_shops: "Sklepy",
+        cat_parks: "Parki i Ogrody",
+        cat_entertainment: "Rozrywka",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    uk: {
+        brand: "Navigrate",
+        places: "Місця",
+        guide: "Гід",
+        routes: "Маршрути",
+        search: "Пошук місць...",
+        categories: "Категорії",
+        locations: "локацій",
+        ticketsAndTips: "Квитки та поради",
+        zoneA: "Зона А",
+        airport: "Аеропорт",
+        metroLines: "Лінії метро",
+        transitLayers: "Транспортні маршрути",
+        peak: "Година пік",
+        offPeak: "Поза годиною пік",
+        first: "Перший",
+        last: "Останній",
+        allStops: "Всі зупинки",
+        switchToSatellite: "Супутник",
+        switchToMap: "Карта",
+        resetView: "Скинути",
+        topView: "Вигляд зверху",
+        angledView: "3D вигляд",
+        myLocation: "Моя локація",
+        cat_landmarks: "Пам'ятки",
+        cat_cafes: "Кафе",
+        cat_banks: "Банки",
+        cat_clubs: "Клуби та нічне життя",
+        cat_hospitals: "Лікарні",
+        cat_pools: "Басейни та Зали",
+        cat_metro: "Станції метро",
+        cat_tram: "Трамвайні зупинки",
+        cat_train: "Залізничні станції",
+        cat_supermarkets: "Супермаркети",
+        cat_shops: "Магазини",
+        cat_parks: "Парки та сади",
+        cat_entertainment: "Розваги",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    ar: {
+        brand: "Navigrate",
+        places: "الأماكن",
+        guide: "الدليل",
+        routes: "المسارات",
+        search: "البحث عن الأماكن...",
+        categories: "الفئات",
+        locations: "موقع",
+        ticketsAndTips: "التذاكر والنصائح",
+        zoneA: "المنطقة أ",
+        airport: "المطار",
+        metroLines: "خطوط المترو",
+        transitLayers: "طبقات النقل",
+        peak: "ساعة الذروة",
+        offPeak: "خارج الذروة",
+        first: "الأول",
+        last: "الأخير",
+        allStops: "جميع المحطات",
+        switchToSatellite: "القمر الصناعي",
+        switchToMap: "الخريطة",
+        resetView: "إعادة تعيين",
+        topView: "منظر علوي",
+        angledView: "عرض ثلاثي الأبعاد",
+        myLocation: "موقعي",
+        cat_landmarks: "المعالم",
+        cat_cafes: "المقاهي",
+        cat_banks: "البنوك",
+        cat_clubs: "النوادي والحياة الليلية",
+        cat_hospitals: "المستشفيات",
+        cat_pools: "حمامات السباحة والصالات الرياضية",
+        cat_metro: "محطات المترو",
+        cat_tram: "محطات الترام",
+        cat_train: "محطات القطار",
+        cat_supermarkets: "السوبر ماركت",
+        cat_shops: "المحلات التجارية",
+        cat_parks: "الحدائق والمتنزهات",
+        cat_entertainment: "الترفيه",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
+    },
+    hr: {
+        brand: "Navigrate",
+        places: "Mjesta",
+        guide: "Vodič",
+        routes: "Rute",
+        search: "Pretraži mjesta...",
+        categories: "Kategorije",
+        locations: "lokacija",
+        ticketsAndTips: "Karte i Savjeti",
+        zoneA: "Zona A",
+        airport: "Zračna luka",
+        metroLines: "Linije metroa",
+        transitLayers: "Prometni slojevi",
+        peak: "Vršni sat",
+        offPeak: "Izvan vršnog sata",
+        first: "Prvi",
+        last: "Posljednji",
+        allStops: "Sve stanice",
+        switchToSatellite: "Satelit",
+        switchToMap: "Karta",
+        resetView: "Resetiraj",
+        topView: "Pogled odozgo",
+        angledView: "3D pogled",
+        myLocation: "Moja lokacija",
+        cat_landmarks: "Znamenitosti",
+        cat_cafes: "Kafići",
+        cat_banks: "Banke",
+        cat_clubs: "Klubovi i Noćni život",
+        cat_hospitals: "Bolnice",
+        cat_pools: "Bazeni i Teretane",
+        cat_metro: "Stanice metroa",
+        cat_tram: "Tramvajske stanice",
+        cat_train: "Željezničke stanice",
+        cat_supermarkets: "Supermarketi",
+        cat_shops: "Trgovine",
+        cat_parks: "Parkovi i vrtovi",
+        cat_entertainment: "Zabava",
+        googleMaps: "Google Maps",
+        appleMaps: "Apple Maps"
     }
-
-    /* Bottom Sheet Panel */
-    .glass-panel {
-        position: fixed;
-        top: auto;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 85vh;
-        /* Expanded height */
-        max-height: 85vh;
-        border-radius: 28px 28px 0 0;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-bottom: none;
-        background: rgba(15, 23, 42, 0.9);
-        /* High opacity for readability */
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-        z-index: 100;
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        transform: translateY(0);
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Collapsed State */
-    .glass-panel.collapsed {
-        transform: translateY(calc(85vh - 130px));
-        /* Shows header + handle */
-    }
-
-    /* Drawer Handle */
-    .drawer-handle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px 0 8px;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .drawer-handle::after {
-        content: '';
-        width: 48px;
-        height: 5px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 100px;
-        transition: background 0.3s;
-    }
-
-    .glass-panel:not(.collapsed) .drawer-handle::after {
-        background: rgba(255, 255, 255, 0.5);
-    }
-
-    .handle-icon {
-        display: none;
-        /* Hide chevron, use pill handle */
-    }
-
-    /* Header adjustments */
-    .panel-header {
-        padding: 0 24px 16px;
-        flex-shrink: 0;
-    }
-
-    .brand-row {
-        margin-bottom: 20px;
-    }
-
-    .brand-text {
-        font-size: 22px;
-    }
-
-    .brand-icon {
-        width: 36px;
-        height: 36px;
-    }
-
-    /* Nav Tabs */
-    .nav-tabs {
-        padding: 6px;
-        gap: 6px;
-    }
-
-    .nav-tab {
-        padding: 12px;
-        font-size: 13px;
-        flex: 1;
-    }
-
-    /* Content Scroll */
-    .panel-content {
-        flex: 1;
-        overflow-y: auto;
-        padding: 0 24px 40px;
-        /* Extra bottom padding for safe area */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Floating Actions */
-    .floating-actions {
-        top: 16px;
-        right: 16px;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .fab {
-        width: 48px;
-        height: 48px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        background: rgba(15, 23, 42, 0.7);
-    }
-
-    /* Popups on Mobile */
-    .marker-popup,
-    .maplibregl-popup-content,
-    .popup-container {
-        max-width: 300px !important;
-        width: 85vw !important;
-    }
-
-    .maplibregl-popup {
-        z-index: 200 !important;
-        /* Above panel */
-    }
-
-    .popup-actions {
-        flex-direction: row;
-        /* Keep side-by-side but squeeze if needed */
-    }
-
-    .map-btn {
-        padding: 12px;
-        font-size: 13px;
-    }
-
-    /* Language Dropdown Position */
-    .lang-dropdown {
-        position: fixed;
-        bottom: auto;
-        right: 24px;
-        top: 80px;
-        /* Below header */
-        width: 150px;
-        height: auto;
-        max-height: 50vh;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        background: #1e293b;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Hide scrollbar visually but keep functionality */
-    .panel-content::-webkit-scrollbar {
-        width: 0px;
-        background: transparent;
-    }
-}
-
-/* Small Phones */
-@media (max-width: 380px) {
-    .brand-text {
-        font-size: 18px;
-    }
-
-    .nav-tab {
-        font-size: 12px;
-        padding: 10px;
-    }
-
-    .panel-header {
-        padding: 0 16px 16px;
-    }
-
-    .panel-content {
-        padding: 0 16px 40px;
-    }
-}
+};
+export const getTranslation = (lang, key) => {
+    return translations[lang]?.[key] || translations.en[key] || key;
+};
