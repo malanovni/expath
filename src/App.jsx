@@ -282,7 +282,7 @@ const App = () => {
   const activePopupRef = useRef(null);
 
   const [activeTab, setActiveTab] = useState("places");
-  const [visibleCategories, setVisibleCategories] = useState(() => new Set(categories.map(c => c.id)));
+  const [visibleCategories, setVisibleCategories] = useState(() => new Set());
   const [visibleRoutes, setVisibleRoutes] = useState(() => new Set(routes.map(r => r.id)));
   const [searchQuery, setSearchQuery] = useState("");
   const [isMapReady, setMapReady] = useState(false);
@@ -296,7 +296,7 @@ const App = () => {
   const [showUserLocation, setShowUserLocation] = useState(false);
   const [drawerCollapsed, setDrawerCollapsed] = useState(false);
   const userMarkerRef = useRef(null);
-  const [userHasSelectedCategories, setUserHasSelectedCategories] = useState(false);
+  const [userHasSelectedCategories, setUserHasSelectedCategories] = useState(true);
 
   const t = (key) => getTranslation(lang, key);
 
