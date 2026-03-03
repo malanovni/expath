@@ -267,7 +267,6 @@ const metroStations = {
     { name: "Paiporta", coords: [-0.418056, 39.432222], description: "Southern town.", line: "1,2,7" },
     { name: "Picanya", coords: [-0.436579, 39.433100], description: "Southern town.", line: "1,2,7" },
     { name: "Torrent", coords: [-0.460833, 39.436111], description: "Major town southwest of Valencia. Connection to Line 2, 7 terminus.", line: "1" },
-    { name: "Castelló", coords: [-0.516111, 39.083889], description: "Southern Terminus (Villanueva de Castellón).", line: "1" },
     // Line 2 Stations (Pink)
     { name: "Llíria", coords: [-0.590278, 39.622778], description: "Northwest Terminus. Known as the \"City of Music\".", line: "2" },
     { name: "Benaguasil (2n)", coords: [-0.584167, 39.599167], description: "Town stop.", line: "2" },

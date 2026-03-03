@@ -250,20 +250,6 @@ const addMapLayers = (map) => {
       }
     });
 
-    // Neon Glow Layer (Behind everything)
-    map.addLayer({
-      id: `${route.id}-glow`,
-      type: "line",
-      source: route.id,
-      layout: { "line-cap": "round", "line-join": "round" },
-      paint: {
-        "line-color": route.color,
-        "line-width": route.width * 3,
-        "line-opacity": 0.4,
-        "line-blur": 3
-      }
-    });
-
     map.addLayer({
       id: `${route.id}-outline`,
       type: "line",
@@ -310,6 +296,7 @@ const App = () => {
   const [showUserLocation, setShowUserLocation] = useState(false);
   const [drawerCollapsed, setDrawerCollapsed] = useState(false);
   const userMarkerRef = useRef(null);
+  const [userHasSelectedCategories, setUserHasSelectedCategories] = useState(false);
 
   const t = (key) => getTranslation(lang, key);
 
@@ -321,6 +308,19 @@ const App = () => {
       activePopupRef.current = null;
     }
   }, []);
+
+  // Select all categories
+  const selectAllCategories = () => {
+    const allCategories = new Set(categories.map(c => c.id));
+    setVisibleCategories(allCategories);
+    setUserHasSelectedCategories(true);
+  };
+
+  // Deselect all categories
+  const deselectAllCategories = () => {
+    setVisibleCategories(new Set());
+    setUserHasSelectedCategories(true);
+  };
 
   // Initialize Map
   useEffect(() => {
@@ -419,6 +419,11 @@ const App = () => {
   };
 
   const showLocationMarker = (coords) => {
+    // Remove existing user location marker if it exists
+    if (userMarkerRef.current) {
+      userMarkerRef.current.remove();
+    }
+
     setUserLocation(coords);
     setShowUserLocation(true);
 
@@ -448,7 +453,9 @@ const App = () => {
     markersRef.current = [];
 
     categories.forEach(cat => {
-      if (!visibleCategories.has(cat.id)) return;
+      // Show all categories initially, only filter if user has selected categories
+      const shouldShowCat = userHasSelectedCategories ? visibleCategories.has(cat.id) : true;
+      if (!shouldShowCat) return;
 
       cat.features.forEach((feature, idx) => {
         if (searchQuery && !feature.name.toLowerCase().includes(searchQuery.toLowerCase())) return;
@@ -504,7 +511,7 @@ const App = () => {
       });
     });
 
-  }, [isMapReady, visibleCategories, searchQuery, focusedMarkerId, clearFocus, lang]);
+  }, [isMapReady, visibleCategories, searchQuery, focusedMarkerId, clearFocus, lang, userHasSelectedCategories]);
 
   // Route Visibility (hide irrelevant lines when station focused)
   useEffect(() => {
@@ -536,6 +543,7 @@ const App = () => {
     const next = new Set(visibleCategories);
     next.has(id) ? next.delete(id) : next.add(id);
     setVisibleCategories(next);
+    setUserHasSelectedCategories(true);
   };
 
   const toggleRoute = (id) => {
@@ -597,6 +605,40 @@ const App = () => {
                 />
               </div>
               <div className="section-title">{t("categories")}</div>
+              <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
+                <button
+                  onClick={selectAllCategories}
+                  style={{
+                    flex: 1,
+                    padding: "8px 12px",
+                    backgroundColor: "#4f46e5",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                    fontWeight: "500"
+                  }}
+                >
+                  Select All
+                </button>
+                <button
+                  onClick={deselectAllCategories}
+                  style={{
+                    flex: 1,
+                    padding: "8px 12px",
+                    backgroundColor: "#6b7280",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                    fontWeight: "500"
+                  }}
+                >
+                  Deselect All
+                </button>
+              </div>
               {categories.map(cat => (
                 <div key={cat.id} className="list-item" onClick={() => toggleCat(cat.id)}>
                   <div className="item-left">
